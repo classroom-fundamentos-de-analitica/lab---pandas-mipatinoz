@@ -121,39 +121,15 @@ def pregunta_09():
     
     return tbl0
 def pregunta_10():
-    """
-    Construya una tabla que contenga _c1 y una lista separada por ':' de los valores de
-    la columna _c2 para el archivo `tbl0.tsv`.
-    Rta/
-                                   _c1
-      _c0
-    0   A              1:1:2:3:6:7:8:9
-    1   B                1:3:4:5:6:8:9
-    2   C                    0:5:6:7:9
-     3   D                  1:2:3:5:5:7
-     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
-    """
-
 
     tablaN = tbl0[["_c1", "_c2"]].copy().set_index("_c2").groupby("_c1")
     proc = {g:":".join(sorted([str(x) for x in c])) for g,c in tablaN.groups.items()}
+    
+    
     return pd.DataFrame({"_c1":proc.keys(), "_c2":proc.values()}).set_index("_c1")
 
- def pregunta_11():
-    """
-    Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
-    la columna _c4 del archivo `tbl1.tsv`.
-    Rta/
-        _c0      _c4
-    0     0    b,f,g
-    1     1    a,c,f
-    2     2  a,c,e,f
-    3     3      a,b
-    ...
-    37   37  a,c,e,f
-    38   38      d,e
-    39   39    a,d,f
-    """
+def pregunta_11():
+    
     dataf = pd.DataFrame()
     for letra in tbl1["_c0"].unique():
         df = np.where(tbl1["_c0"]==letra,tbl1["_c4"],"")
@@ -165,6 +141,7 @@ def pregunta_10():
         temp = pd.DataFrame({"_c0":[letra], "_c4": string})
         dataf = dataf.append(temp, ignore_index=True)
     return dataf
+
 def pregunta_12():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
